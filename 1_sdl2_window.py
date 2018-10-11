@@ -3,52 +3,24 @@
 # * Date : 1-Oct-2018
 # * Author : Ram
 # * Email : ramkalath@gmail.com
-# * Breif Description : sld window
-# * Detailed Description : learning sdl
+# * Breif Description : penguin engine
+# * Detailed Description : Attempt to create a my first game engine called "penguin" engine
 # *****************************************************************************
 
-import ctypes
 import sdl2
 from OpenGL import GL
-from OpenGL.arrays import vbo
-import numpy as np
 import Shader
+import numpy as np
+import sdl_setup
 
-def sdl_poll_events():
-    event = sdl2.SDL_Event()
-    if sdl2.SDL_PollEvent(ctypes.byref(event)):
-        # check for escape key press
-        if (event.type == sdl2.SDL_KEYDOWN and event.key.keysym.sym == sdl2.SDLK_ESCAPE):
-            return False
-        # check for other forms of quit
-        if (event.type == sdl2.SDL_QUIT):
-            return False
-    return True
 
 if __name__ == "__main__":
-    window_width = 640
-    window_height = 480
+    window, context = sdl_setup.setup("Penguin Engine")
+    # yet to add other finger and mouse gestures and feed back onto the main environment. Maybe we can create a separate class for feedback and poll events.
 
-    if sdl2.SDL_Init(sdl2.SDL_INIT_EVERYTHING):
-        print sdl2.SDL_GetError()
-        sdl2.SDL_Quit()
-
-    # sdl2 set context properties
-    sdl2.SDL_GL_SetAttribute(sdl2.SDL_GL_CONTEXT_MAJOR_VERSION, 3) 
-    sdl2.SDL_GL_SetAttribute(sdl2.SDL_GL_CONTEXT_MINOR_VERSION, 3) 
-    sdl2.SDL_GL_SetAttribute(sdl2.SDL_GL_CONTEXT_PROFILE_MASK, sdl2.SDL_GL_CONTEXT_PROFILE_CORE)
-
-    # create a window
-    window = sdl2.SDL_CreateWindow("python sdl2 window",
-                                   sdl2.SDL_WINDOWPOS_UNDEFINED,
-                                   sdl2.SDL_WINDOWPOS_UNDEFINED,
-                                   640, 480,
-                                   sdl2.SDL_WINDOW_OPENGL)
-
-    context = sdl2.SDL_GL_CreateContext(window)
-    
     myshader = Shader.shader("./shaders/vertex_shader.vert", "./shaders/fragment_shader.frag")
     myshader.process_shader()
+
     #***************************************************************************
     vertices= np.array([-0.5, -0.5, 0.0, 
                          0.5, -0.5, 0.0,
@@ -77,5 +49,5 @@ if __name__ == "__main__":
         GL.glDrawArrays(GL.GL_TRIANGLES, 0, 3)
         GL.glBindVertexArray(0)
 
-        running = sdl_poll_events()
+        running = sdl_setup.poll_events()
         sdl2.SDL_GL_SwapWindow(window)
