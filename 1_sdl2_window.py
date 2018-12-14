@@ -15,7 +15,7 @@ import sdl_setup
 
 
 if __name__ == "__main__":
-    window, context = sdl_setup.setup("Penguin Engine")
+    window, context = sdl_setup.setup(b"Penguin Engine")
     # yet to add other finger and mouse gestures and feed back onto the main environment. Maybe we can create a separate class for feedback and poll events.
 
     myshader = Shader.shader("./shaders/vertex_shader.vert", "./shaders/fragment_shader.frag")
