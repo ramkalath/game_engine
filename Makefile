@@ -1,2 +1,4 @@
 all:
-	python3 1_sdl2_window.py
+	@python3 1_sdl2_window.py
+run:
+	@echo " "

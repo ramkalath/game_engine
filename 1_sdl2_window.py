@@ -7,18 +7,19 @@
 # * Detailed Description : Attempt to create a my first game engine called "penguin" engine
 # *****************************************************************************
 
-import sdl2
 from OpenGL import GL
-import Shader
+import sdl2
 import numpy as np
-import sdl_setup
+
+# user defined
+import shaders.Shader as sh
+import sdl.Sdl_setup as ss
 
 
 if __name__ == "__main__":
-    window, context = sdl_setup.setup(b"Penguin Engine")
+    window, context = ss.setup(b"Penguin Engine")
     # yet to add other finger and mouse gestures and feed back onto the main environment. Maybe we can create a separate class for feedback and poll events.
-
-    myshader = Shader.shader("./shaders/vertex_shader.vert", "./shaders/fragment_shader.frag")
+    myshader = sh.shader("./shaders/vertex_shader.vert", "./shaders/fragment_shader.frag")
     myshader.process_shader()
 
     #***************************************************************************
@@ -49,5 +50,5 @@ if __name__ == "__main__":
         GL.glDrawArrays(GL.GL_TRIANGLES, 0, 3)
         GL.glBindVertexArray(0)
 
-        running = sdl_setup.poll_events()
+        running = ss.poll_events()
         sdl2.SDL_GL_SwapWindow(window)
