@@ -7,8 +7,7 @@
 # * Detailed Description :
 # *****************************************************************************
 
-import glob
-import os
+import glob, os
 from OpenGL import GL
 
 class shader:
