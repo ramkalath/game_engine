@@ -1,7 +1,10 @@
 import sdl2
 import ctypes
+''' Handles windowing '''
 
 def setup(title = "SDL window", width = 640, height = 480):
+    ''' creates and SDL window and context '''
+
     if sdl2.SDL_Init(sdl2.SDL_INIT_EVERYTHING):
         print('\x1b[0;37;41m' + sdl2.SDL_GetError() + '\x1b[0m')
         sdl2.SDL_Quit()
@@ -20,6 +23,8 @@ def setup(title = "SDL window", width = 640, height = 480):
     return window, context
 
 def poll_events():
+    ''' 1) checks for window quit events '''
+
     event = sdl2.SDL_Event()
     if sdl2.SDL_PollEvent(ctypes.byref(event)):
         # check for escape key press
